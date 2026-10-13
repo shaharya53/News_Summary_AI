@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}News Summary{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <!-- Added custom styles for enhanced UI -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<!-- Enhanced background with subtle pattern -->
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-sans">
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Navbar -->
+<!-- Enhanced navbar with better shadows and modern styling -->
+<nav x-data="{ open: false }" class="bg-white/80 backdrop-blur-md border-b border-white/20 shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Logo -->
+    <!-- Enhanced logo with gradient text and better spacing -->
+    <a href="/" class="text-2xl font-bold flex items-center gap-3 hover:opacity-90 no-underline group">
+      <div class="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300">
+        <i class="bi bi-newspaper text-white text-xl"></i>
+      </div>
+      <span class="gradient-text">News Summary</span>
+    </a>
+
+    <!-- Hamburger button (mobile) -->
+    <!-- Enhanced mobile button with better styling -->
+    <button @click="open = !open" class="md:hidden p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+      <template x-if="!open">
+        <svg class="w-6 h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </template>
+      <template x-if="open">
+        <svg class="w-6 h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </template>
+    </button>
+
+    <!-- Menu (desktop) -->
+    <!-- Enhanced desktop menu with modern button styles -->
+    <ul class="hidden md:flex gap-8 items-center text-base">
+      <li>
+        <a href="/" class="text-gray-700 hover:text-blue-600 transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all hover:after:w-full">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all hover:after:w-full">About</a>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all hover:after:w-full">Contact</a>
+        </li>
+        <li class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Hello, {{ user.username }}</li>
+        <li>
+          <a href="{% url 'logout' %}" class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2.5 rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Logout</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{% url 'login' %}?next={% url 'contact' %}" class="text-gray-700 hover:text-blue-600 transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all hover:after:w-full">Contact</a>
+        </li>
+        <li>
+          <a href="{% url 'login' %}" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-full hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Login</a>
+        </li>
+        <li>
+          <a href="{% url 'signup' %}" class="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-2.5 rounded-full hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Sign Up</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <!-- Mobile menu -->
+  <!-- Enhanced mobile menu with better styling and animations -->
+  <div x-show="open" 
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0 transform -translate-y-2"
+       x-transition:enter-end="opacity-100 transform translate-y-0"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100 transform translate-y-0"
+       x-transition:leave-end="opacity-0 transform -translate-y-2"
+       @click.away="open = false" 
+       class="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-lg">
+    <ul class="flex flex-col gap-1 p-4">
+      <li>
+        <a href="/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg font-medium" @click="open = false">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'about' %}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg font-medium" @click="open = false">About</a>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'contact' %}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg font-medium" @click="open = false">Contact</a>
+        </li>
+        <li class="px-4 py-2">
+          <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Hello, {{ user.username }}</span>
+        </li>
+        <li class="px-4 py-2">
+          <a href="{% url 'logout' %}" class="block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2.5 rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-300 font-medium text-center shadow-lg" @click="open = false">Logout</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{% url 'login' %}?next={% url 'contact' %}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors rounded-lg font-medium" @click="open = false">Contact</a>
+        </li>
+        <li class="px-4 py-2">
+          <a href="{% url 'login' %}" class="block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-full hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium text-center shadow-lg" @click="open = false">Login</a>
+        </li>
+        <li class="px-4 py-2">
+          <a href="{% url 'signup' %}" class="block bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-2.5 rounded-full hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 font-medium text-center shadow-lg" @click="open = false">Sign Up</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<!-- Enhanced main content area with better spacing -->
+<main class="container mx-auto px-6 py-8 min-h-screen">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<!-- Enhanced footer with modern design and better visual hierarchy -->
+<footer class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 relative overflow-hidden">
+  <!-- Decorative background -->
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-purple-900/10"></div>
+  
+  <div class="container mx-auto px-6 py-12 relative z-10">
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+      
+      <!-- About -->
+      <div class="space-y-4">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
+              <i class="bi bi-newspaper text-white"></i>
+            </div>
+            <h2 class="text-xl font-bold text-white">News Summary</h2>
+          </div>
+          <p class="text-gray-400 leading-relaxed">
+              Your daily dose of summarized news from trusted sources.
+              Stay informed, save time, and never miss what matters.
+          </p>
+          <div class="flex gap-4 pt-2">
+              <a href="https://www.facebook.com/profile.php?id=100064488245294" class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-300 group">
+                <i class="bi bi-facebook text-gray-400 group-hover:text-white"></i>
+              </a>
+              
+              <a href="https://www.instagram.com/dev_iloo7/" class="w-10 h-10 bg-gray-800 hover:bg-pink-600 rounded-full flex items-center justify-center transition-colors duration-300 group">
+                <i class="bi bi-instagram text-gray-400 group-hover:text-white"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/arya-shah-06488a358/" class="w-10 h-10 bg-gray-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors duration-300 group">
+                <i class="bi bi-linkedin text-gray-400 group-hover:text-white"></i>
+              </a>
+          </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="space-y-4">
+          <h2 class="text-xl font-bold text-white mb-6">Quick Links</h2>
+          <ul class="space-y-3">
+              <li><a href="/" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"><i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>Home</a></li>
+              <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"><i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>About</a></li>
+              <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"><i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>Contact</a></li>
+              {% if user.is_authenticated %}
+                  <li><a href="{% url 'logout' %}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"><i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>Logout</a></li>
+              {% else %}
+                  <li><a href="{% url 'login' %}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"><i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>Login</a></li>
+                  <li><a href="{% url 'signup' %}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"><i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>Sign Up</a></li>
+              {% endif %}
+          </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-4">
+          <h2 class="text-xl font-bold text-white mb-6">Get In Touch</h2>
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <i class="bi bi-envelope-fill text-white"></i>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">Email</p>
+                <p class="text-white font-medium">aryaaryashah@gmail.com</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <i class="bi bi-geo-alt-fill text-white"></i>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm">Location</p>
+                <p class="text-white font-medium">India</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-gray-800 bg-gray-900/50 backdrop-blur-sm">
+    <div class="container mx-auto px-6 py-6 text-center">
+      <p class="text-gray-400 text-sm">
+        &copy; {{ now|date:"Y" }} News Summary | Powered by <span class="text-blue-400 font-medium">Arya</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div class="max-w-6xl mx-auto pt-16 pb-20 px-4">
+
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <!-- Enhanced heading with better typography and spacing -->
+            <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6 leading-tight">
+                About Our News Platform
+            </h1>
+            <!-- Improved subtitle with better contrast and spacing -->
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
+                Stay informed in minutes with AI-powered news summaries designed to be fast, accurate, and tailored to your interests.
+            </p>
+            
+            <!-- Added decorative elements for visual interest -->
+            <div class="flex justify-center mt-8 space-x-2">
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <div class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <!-- Enhanced grid layout with better spacing and visual hierarchy -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+            <!-- Enhanced mission card with modern styling and better visual elements -->
+            <div class="group bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/50 hover:border-blue-200/50 hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="bi bi-bullseye text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">Our Mission</h2>
+                </div>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    We aim to revolutionize the way people consume news — making it quick, accessible, and relevant.
+                    Our platform uses cutting-edge AI to summarize articles and categorize them for you.
+                </p>
+                <!-- Added subtle accent line -->
+                <div class="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mt-4 group-hover:w-20 transition-all duration-300"></div>
+            </div>
+
+            <!-- Enhanced differentiators card with improved styling -->
+            <div class="group bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/50 hover:border-yellow-200/50 hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-3 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="bi bi-stars text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">What Makes Us Different</h2>
+                </div>
+                <!-- Enhanced list with better spacing and visual indicators -->
+                <ul class="space-y-3 text-lg">
+                    <li class="flex items-center gap-3 text-slate-600 group-hover:text-slate-700 transition-colors">
+                        <div class="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex-shrink-0"></div>
+                        AI-powered article summarization
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-600 group-hover:text-slate-700 transition-colors">
+                        <div class="w-2 h-2 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex-shrink-0"></div>
+                        Category-based filtering for your interests
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-600 group-hover:text-slate-700 transition-colors">
+                        <div class="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex-shrink-0"></div>
+                        Mobile-friendly, fast, and easy to use
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-600 group-hover:text-slate-700 transition-colors">
+                        <div class="w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex-shrink-0"></div>
+                        Daily updates from trusted sources
+                    </li>
+                </ul>
+                <!-- Added subtle accent line -->
+                <div class="w-12 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full mt-4 group-hover:w-20 transition-all duration-300"></div>
+            </div>
+        </div>
+
+        <!-- Added bottom decorative section for visual balance -->
+        <div class="text-center mt-16">
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/60 backdrop-blur-sm rounded-full border border-white/50 shadow-lg">
+                <div class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse"></div>
+                <span class="text-slate-600 font-medium">Powered by Advanced AI Technology</span>
+                <div class="w-3 h-3 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
